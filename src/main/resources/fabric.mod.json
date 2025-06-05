@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "loginmod",
+  "version": "${version}",
+
+  "name": "LoginMod",
+  "description": "A server side login / register mod for offline mode servers",
+  "authors": [
+    "Slaymi"
+  ],
+  "contact": {},
+
+  "license": "MIT",
+  "icon": "assets/loginmod/icon.png",
+
+  "environment": "server",
+  "entrypoints": {
+    "fabric-datagen": ["fr.slaymi.loginmod.client.LoginmodDataGenerator"],
+    "main": ["fr.slaymi.loginmod.Loginmod"]
+  },
+
+  "mixins": [
+    "loginmod.mixins.json"
+    ,{
+      "config": "loginmod.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

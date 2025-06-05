@@ -1,0 +1,16 @@
+{
+  "type": "loginmod:login_world",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "layers": [
+        {
+          "block": "minecraft:air",
+          "height": 200
+        }
+      ],
+      "structure_overrides": [],
+      "biome": "minecraft:plains"
+    }
+  }
+}
