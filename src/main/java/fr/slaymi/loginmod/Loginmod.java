@@ -102,7 +102,12 @@ public class Loginmod implements ModInitializer {
         JsonObject playerData = FileHandler.findPlayer(username);
 
         if (playerData == null) {
-            System.out.println("[LoginMod] Unknown player (likely disconnected from login world): " + username);
+            System.out.println("[LoginMod] Unknown player : " + player.getGameProfile().getName() + ", skipping save (likely disconnected from login world before registering)" + username);
+            return;
+        }
+
+        if (player.getWorld().getRegistryKey().equals(LOGIN_WORLD_KEY)) {
+            System.out.println("[LoginMod] Player " + player.getGameProfile().getName() + " disconnected from login world, skipping save");
             return;
         }
 

@@ -76,28 +76,6 @@ public class FileHandler {
         return null; // Player not found
     }
 
-    public static boolean removePlayer(String username) {
-        JsonArray players = readPlayersFile();
-        boolean removed = false;
-
-        for (int i = 0; i < players.size(); i++) {
-            JsonObject player = players.get(i).getAsJsonObject();
-            if (player.get("username").getAsString().equals(username)) {
-                players.remove(i);
-                removed = true;
-                break;
-            }
-        }
-
-        if (removed) {
-            writePlayersFile(players);
-            System.out.println("[LoginMod] Removed player " + username + " from players file");
-        } else {
-            System.out.println("[LoginMod] Player " + username + " not found in players file");
-        }
-
-        return removed;
-    }
     public static void updatePlayerData(String username, JsonObject newData) {
         JsonArray players = readPlayersFile();
         boolean updated = false;
@@ -117,7 +95,7 @@ public class FileHandler {
             writePlayersFile(players);
             System.out.println("[LoginMod] Updated player " + username + " in players file");
         } else {
-            System.out.println("[LoginMod] Player " + username + " not found for update");
+            System.err.println("[LoginMod] Player " + username + " not found for update");
         }
 
     }

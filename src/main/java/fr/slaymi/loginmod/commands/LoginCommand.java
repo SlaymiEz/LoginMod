@@ -21,11 +21,9 @@ import static fr.slaymi.loginmod.Loginmod.LOGIN_WORLD_KEY;
 public class LoginCommand {
 
     public static void register() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            dispatcher.register(CommandManager.literal("login")
-                    .then(CommandManager.argument("password", StringArgumentType.word())
-                            .executes(LoginCommand::execute)));
-        });
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(CommandManager.literal("login")
+                .then(CommandManager.argument("password", StringArgumentType.word())
+                        .executes(LoginCommand::execute))));
     }
 
     private static int execute(CommandContext<ServerCommandSource> context) {
@@ -37,7 +35,7 @@ public class LoginCommand {
         }
 
         if (!player.getWorld().getRegistryKey().equals(LOGIN_WORLD_KEY)) {
-            source.sendError(Text.literal("§cTu ne peux exécuter cette commande que dans le monde de connexion."));
+            source.sendError(Text.literal("Tu ne peux exécuter cette commande que dans le monde de connexion."));
             return 0;
         }
 
@@ -46,13 +44,13 @@ public class LoginCommand {
 
         JsonObject playerData = FileHandler.findPlayer(username);
         if (playerData == null) {
-            source.sendError(Text.literal("§cTu n'es pas enregistré. Utilise §f/register §cpour t'enregistrer."));
+            source.sendError(Text.literal("Tu n'es pas enregistré. Utilise §f/register §cpour t'enregistrer."));
             return 0;
         }
 
         String expectedPassword = playerData.get("password").getAsString();
         if (!password.equals(expectedPassword)) {
-            source.sendError(Text.literal("§cMot de passe incorrect. Si le problème persiste, contacte §fsami.tropbeau §csur Instagram."));
+            source.sendError(Text.literal("Mot de passe incorrect. Si le problème persiste, contacte §fsami.tropbeau §csur Instagram."));
             return 0;
         }
 
@@ -73,7 +71,7 @@ public class LoginCommand {
             player.teleport(world, x, y, z, java.util.Set.of(), yaw, pitch, false);
             player.changeGameMode(GameMode.SURVIVAL);
 
-            source.sendMessage(Text.literal("§aConnexion réussie !"));
+            source.sendMessage(Text.literal("§aConnéxion réussie !"));
         } catch (Exception ex) {
             ex.printStackTrace();
             source.sendError(Text.literal("§cUne erreur est survenue. Réessaie ou contacte §fsami.tropbeau §csur Instagram."));

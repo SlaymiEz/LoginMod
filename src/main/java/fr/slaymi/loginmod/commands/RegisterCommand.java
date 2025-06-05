@@ -14,11 +14,9 @@ import static fr.slaymi.loginmod.Loginmod.LOGIN_WORLD_KEY;
 public class RegisterCommand {
 
     public static void register() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            dispatcher.register(CommandManager.literal("register")
-                    .then(CommandManager.argument("password", StringArgumentType.word())
-                            .executes(RegisterCommand::execute)));
-        });
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(CommandManager.literal("register")
+                .then(CommandManager.argument("password", StringArgumentType.word())
+                        .executes(RegisterCommand::execute))));
     }
 
     private static int execute(CommandContext<ServerCommandSource> context) {
@@ -30,14 +28,14 @@ public class RegisterCommand {
         }
 
         if (!player.getWorld().getRegistryKey().equals(LOGIN_WORLD_KEY)) {
-            source.sendError(Text.literal("§cTu ne peux exécuter cette commande que dans le monde de connexion."));
+            source.sendError(Text.literal("Tu ne peux exécuter cette commande que dans le monde de connexion."));
             return 0;
         }
 
         String username = player.getGameProfile().getName();
 
         if (FileHandler.findPlayer(username) != null) {
-            source.sendError(Text.literal("§cTu es déjà enregistré. Utilise §f/login §cpour te connecter."));
+            source.sendError(Text.literal("Tu es déjà enregistré. Utilise §f/login §cpour te connecter."));
             return 0;
         }
 
